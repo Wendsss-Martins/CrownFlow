@@ -386,7 +386,11 @@ async def create_business(
     if user.role != 'owner':
         raise HTTPException(status_code=403, detail="Apenas donos podem criar barbearias")
     
-    result = await db.execute(select(Business).where(Business.owner_id == user.id))
+    result = await db.execute(
+        select(Business)
+        .where(Business.owner_id == user.id)
+        .limit(1)
+    )
     if result.scalar_one_or_none():
         raise HTTPException(status_code=400, detail="Você já possui uma barbearia cadastrada")
     
@@ -416,7 +420,12 @@ async def get_my_business(
     if user.role != 'owner':
         return None
     
-    result = await db.execute(select(Business).where(Business.owner_id == user.id))
+    result = await db.execute(
+        select(Business)
+        .where(Business.owner_id == user.id)
+        .order_by(Business.created_at.desc())
+        .limit(1)
+    )
     business = result.scalar_one_or_none()
     
     if not business:
