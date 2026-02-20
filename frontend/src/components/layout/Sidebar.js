@@ -4,11 +4,12 @@ import { Link, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Calendar, 
-  Users, 
   Scissors, 
+  User,
   Settings, 
   Crown,
-  LogOut
+  LogOut,
+  ExternalLink
 } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 
@@ -18,9 +19,9 @@ const Sidebar = () => {
 
   const navItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
-    { icon: Calendar, label: 'Agendamentos', path: '/dashboard/appointments', disabled: true },
-    { icon: Users, label: 'Clientes', path: '/dashboard/clients', disabled: true },
-    { icon: Scissors, label: 'Serviços', path: '/dashboard/services', disabled: true },
+    { icon: Calendar, label: 'Agendamentos', path: '/dashboard', tab: 'appointments' },
+    { icon: Scissors, label: 'Serviços', path: '/dashboard', tab: 'services' },
+    { icon: User, label: 'Barbeiros', path: '/dashboard', tab: 'barbers' },
     { icon: Settings, label: 'Configurações', path: '/dashboard/settings', disabled: true },
   ];
 
@@ -42,7 +43,15 @@ const Sidebar = () => {
         <div className="p-6 border-b border-border">
           <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">Sua Barbearia</p>
           <p className="text-lg font-bold text-foreground truncate">{business.name}</p>
-          <p className="text-sm text-muted-foreground mono">/{business.slug}</p>
+          <a 
+            href={`/agendar/${business.slug}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 text-xs text-primary hover:underline mt-2"
+          >
+            <ExternalLink className="w-3 h-3" />
+            Ver página de agendamento
+          </a>
         </div>
       )}
 
@@ -50,11 +59,11 @@ const Sidebar = () => {
       <nav className="flex-1 py-6">
         <ul className="space-y-1">
           {navItems.map((item) => {
-            const isActive = location.pathname === item.path;
+            const isActive = location.pathname === item.path && !item.tab;
             const Icon = item.icon;
             
             return (
-              <li key={item.path}>
+              <li key={item.label}>
                 {item.disabled ? (
                   <div className="sidebar-link opacity-50 cursor-not-allowed">
                     <Icon className="w-5 h-5" />
