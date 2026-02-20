@@ -1,0 +1,120 @@
+{
+  "summary": {
+    "tests_run": 9,
+    "tests_passed": 9,
+    "success_rate": 100.0
+  },
+  "detailed_results": [
+    {
+      "test_name": "Health Check",
+      "success": true,
+      "status_code": 200,
+      "expected_status": 200,
+      "timestamp": "2026-02-20T16:57:51.020987",
+      "response_data": {
+        "status": "healthy",
+        "timestamp": "2026-02-20T16:57:51.003232+00:00"
+      },
+      "error": null
+    },
+    {
+      "test_name": "API Root",
+      "success": true,
+      "status_code": 200,
+      "expected_status": 200,
+      "timestamp": "2026-02-20T16:57:51.165549",
+      "response_data": {
+        "message": "CrownFlow API v1.0"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Auth Session Endpoint (Invalid Request)",
+      "success": true,
+      "status_code": 422,
+      "expected_status": 422,
+      "timestamp": "2026-02-20T16:57:51.302463",
+      "response_data": {
+        "detail": [
+          {
+            "type": "missing",
+            "loc": [
+              "body",
+              "session_id"
+            ],
+            "msg": "Field required",
+            "input": {},
+            "url": "https://errors.pydantic.dev/2.12/v/missing"
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "test_name": "Auth Session (Invalid Session ID)",
+      "success": true,
+      "status_code": 401,
+      "expected_status": 401,
+      "timestamp": "2026-02-20T16:57:51.605883",
+      "response_data": {
+        "detail": "Sess\u00e3o inv\u00e1lida"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Get Current User (Unauthorized)",
+      "success": true,
+      "status_code": 401,
+      "expected_status": 401,
+      "timestamp": "2026-02-20T16:57:51.728285",
+      "response_data": {
+        "detail": "N\u00e3o autenticado"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Logout (No Session)",
+      "success": true,
+      "status_code": 200,
+      "expected_status": 200,
+      "timestamp": "2026-02-20T16:57:51.854969",
+      "response_data": {
+        "message": "Logout realizado com sucesso"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Business (Unauthorized)",
+      "success": true,
+      "status_code": 401,
+      "expected_status": 401,
+      "timestamp": "2026-02-20T16:57:52.036613",
+      "response_data": {
+        "detail": "N\u00e3o autenticado"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Get My Business (Unauthorized)",
+      "success": true,
+      "status_code": 401,
+      "expected_status": 401,
+      "timestamp": "2026-02-20T16:57:52.207574",
+      "response_data": {
+        "detail": "N\u00e3o autenticado"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Get Business by Slug (Not Found)",
+      "success": true,
+      "status_code": 404,
+      "expected_status": 404,
+      "timestamp": "2026-02-20T16:57:52.472411",
+      "response_data": {
+        "detail": "Barbearia n\u00e3o encontrada"
+      },
+      "error": null
+    }
+  ]
+}
