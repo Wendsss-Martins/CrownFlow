@@ -178,6 +178,26 @@ const BookingPage = () => {
     );
   }
 
+  if (!business) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="max-w-md w-full bg-card border border-border p-8 text-center">
+          <Crown className="w-16 h-16 text-muted-foreground/30 mx-auto mb-6" />
+          <h1 className="text-2xl font-bold mb-2">Barbearia não encontrada</h1>
+          <p className="text-muted-foreground mb-6">
+            A barbearia que você está procurando não existe ou foi removida.
+          </p>
+          <Button 
+            onClick={() => navigate('/')}
+            className="btn-primary"
+          >
+            Voltar ao Início
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
   if (bookingComplete) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
