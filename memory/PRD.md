@@ -120,3 +120,50 @@ Sistema SaaS para agendamento de barbearias chamado CrownFlow.
 - **Auth:** Emergent Google OAuth
 - **Frontend:** React 19 + Tailwind + Shadcn/UI
 - **Backend:** FastAPI + SQLAlchemy (async)
+
+---
+
+## Phase 2 Implementation - 2026-02-20
+
+### New Database Tables
+- **services**: id, business_id, name, description, price, duration_minutes, is_active
+- **barbers**: id, business_id, name, specialty, photo, is_active
+- **appointments**: id, business_id, client_id, service_id, barber_id, client_name, client_phone, appointment_date, appointment_time, duration_minutes, status
+
+### Business Rules Implemented
+- [x] No duplicate bookings for same barber/time (conflict detection)
+- [x] Time slots blocked after booking
+- [x] Configurable business hours (opening_time, closing_time)
+- [x] Configurable slot duration (default 30min)
+- [x] Working days configuration (Mon-Sat by default)
+
+### Client Booking Flow
+1. Select service → Shows price and duration
+2. Select barber → Shows name and specialty
+3. Select date → Shows only working days
+4. Select time → Shows available slots only
+5. Enter name and phone → Required fields
+6. Confirm → Creates appointment
+
+### Admin Dashboard Features
+- [x] Stats: Today's appointments, month total, revenue, unique clients
+- [x] Tabs: Agendamentos, Serviços, Barbeiros
+- [x] Date filter for appointments
+- [x] Cancel/Complete appointment actions
+- [x] CRUD for services
+- [x] CRUD for barbers
+- [x] Copy booking link button
+
+### API Endpoints Added
+- POST/GET/PATCH/DELETE /api/services
+- POST/GET/PATCH/DELETE /api/barbers
+- GET /api/appointments (with date filter)
+- GET /api/appointments/stats
+- PATCH /api/appointments/{id}/cancel
+- PATCH /api/appointments/{id}/complete
+- GET /api/public/{slug}/services
+- GET /api/public/{slug}/barbers
+- GET /api/public/{slug}/slots
+- POST /api/public/{slug}/book
+
+---
