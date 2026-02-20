@@ -136,7 +136,7 @@ class BarberResponse(BaseModel):
     specialty: Optional[str] = None
     photo: Optional[str] = None
     is_active: bool
-    created_at: datetime
+    created_at: Optional[datetime] = None
 
 
 # Appointment Models
