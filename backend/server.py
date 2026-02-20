@@ -223,7 +223,10 @@ async def get_current_user_optional(request: Request, db: AsyncSession = Depends
 async def get_user_business(user: User, db: AsyncSession) -> Business:
     """Get the business owned by the user"""
     result = await db.execute(
-        select(Business).where(Business.owner_id == user.id)
+        select(Business)
+        .where(Business.owner_id == user.id)
+        .order_by(Business.created_at.desc())
+        .limit(1)
     )
     business = result.scalar_one_or_none()
     if not business:
