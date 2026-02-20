@@ -111,7 +111,7 @@ class ServiceResponse(BaseModel):
     price: float
     duration_minutes: int
     is_active: bool
-    created_at: datetime
+    created_at: Optional[datetime] = None
 
 
 # Barber Models
