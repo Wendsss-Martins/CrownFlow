@@ -1,32 +1,13 @@
 # SQLAlchemy Models for CrownFlow Multi-Tenant SaaS
 import uuid
 from datetime import datetime, timezone
-from sqlalchemy import Column, String, DateTime, ForeignKey, Boolean, Text, Index
+from sqlalchemy import Column, String, DateTime, ForeignKey, Boolean, Text
 from sqlalchemy.orm import relationship
 from database import Base
 
 
 def generate_uuid():
     return str(uuid.uuid4())
-
-
-class Business(Base):
-    """Multi-tenant business (barbershop) model"""
-    __tablename__ = 'businesses'
-    
-    id = Column(String(36), primary_key=True, default=generate_uuid)
-    name = Column(String(255), nullable=False)
-    slug = Column(String(100), unique=True, nullable=False, index=True)
-    owner_id = Column(String(36), ForeignKey('users.id', ondelete='CASCADE'), nullable=False, index=True)
-    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
-    
-    # Relationships
-    owner = relationship('User', back_populates='owned_businesses', foreign_keys=[owner_id])
-    
-    __table_args__ = (
-        Index('ix_businesses_slug', 'slug'),
-        Index('ix_businesses_owner', 'owner_id'),
-    )
 
 
 class User(Base):
@@ -44,10 +25,20 @@ class User(Base):
     # Relationships
     owned_businesses = relationship('Business', back_populates='owner', foreign_keys='Business.owner_id')
     sessions = relationship('UserSession', back_populates='user', cascade='all, delete-orphan')
+
+
+class Business(Base):
+    """Multi-tenant business (barbershop) model"""
+    __tablename__ = 'businesses'
     
-    __table_args__ = (
-        Index('ix_users_email', 'email'),
-    )
+    id = Column(String(36), primary_key=True, default=generate_uuid)
+    name = Column(String(255), nullable=False)
+    slug = Column(String(100), unique=True, nullable=False, index=True)
+    owner_id = Column(String(36), ForeignKey('users.id', ondelete='CASCADE'), nullable=False, index=True)
+    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+    
+    # Relationships
+    owner = relationship('User', back_populates='owned_businesses', foreign_keys=[owner_id])
 
 
 class UserSession(Base):
@@ -62,8 +53,3 @@ class UserSession(Base):
     
     # Relationships
     user = relationship('User', back_populates='sessions')
-    
-    __table_args__ = (
-        Index('ix_user_sessions_token', 'session_token'),
-        Index('ix_user_sessions_user', 'user_id'),
-    )
