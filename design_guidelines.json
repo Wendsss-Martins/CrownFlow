@@ -1,0 +1,124 @@
+{
+  "project_name": "CrownFlow",
+  "version": "1.0",
+  "identity": "E1_Anti_AI_Designer",
+  "theme_strategy": "Dark Luxury Barbershop",
+  "emotional_tone": "Masculine, Sharp, Exclusive, Timeless",
+  "typography": {
+    "headings": {
+      "family": "Playfair Display, serif",
+      "weights": ["400", "700", "900"],
+      "usage": "Use for all H1-H3. H1 should be massive (text-5xl to text-7xl). Tracking tight."
+    },
+    "body": {
+      "family": "Manrope, sans-serif",
+      "weights": ["400", "500", "600"],
+      "usage": "Use for body text, inputs, and UI elements. Tracking normal to wide."
+    },
+    "mono": {
+      "family": "JetBrains Mono, monospace",
+      "usage": "Use for time slots, prices, and IDs."
+    }
+  },
+  "colors": {
+    "palette": {
+      "background": "#0a0a0a",
+      "foreground": "#f5f5f5",
+      "card": "#121212",
+      "card_foreground": "#ffffff",
+      "primary": "#D4AF37",
+      "primary_foreground": "#000000",
+      "secondary": "#2a2a2a",
+      "secondary_foreground": "#ffffff",
+      "muted": "#1c1c1c",
+      "muted_foreground": "#a1a1aa",
+      "accent": "#D4AF37",
+      "accent_foreground": "#000000",
+      "destructive": "#7f1d1d",
+      "destructive_foreground": "#ffffff",
+      "border": "#27272a",
+      "input": "#27272a",
+      "ring": "#D4AF37"
+    },
+    "gradients": {
+      "gold_rush": "linear-gradient(135deg, #D4AF37 0%, #AA8A2E 100%)",
+      "dark_void": "linear-gradient(180deg, rgba(10,10,10,0) 0%, #0a0a0a 100%)"
+    }
+  },
+  "visual_enhancers": {
+    "radius": "0px",
+    "borders": "1px solid #27272a",
+    "shadows": {
+      "glow": "0 0 20px rgba(212, 175, 55, 0.15)",
+      "sharp": "4px 4px 0px 0px #2a2a2a"
+    },
+    "textures": "Use subtle grain overlay (opacity 0.03) on backgrounds to avoid flat digital look."
+  },
+  "layout_strategies": {
+    "landing_page": {
+      "mode": "MODE A: TETRIS GRID",
+      "description": "Asymmetric bento grid. Large typography. Parallax scrolling.",
+      "hero_section": "Full screen height. Background image with 'Dark Void' gradient overlay. Gold H1."
+    },
+    "dashboard": {
+      "mode": "MODE B: HIGH DENSITY",
+      "description": "Sidebar navigation (Owner). Compact tables. 'Cardless' look using dividers.",
+      "container": "max-w-[1600px] mx-auto p-6"
+    }
+  },
+  "component_rules": {
+    "buttons": {
+      "primary": "bg-primary text-primary-foreground hover:bg-[#b5952f] rounded-none uppercase tracking-widest font-bold px-8 py-6",
+      "secondary": "bg-transparent border border-border text-foreground hover:border-primary hover:text-primary rounded-none uppercase tracking-widest px-8 py-6"
+    },
+    "inputs": {
+      "style": "bg-transparent border-b border-border focus:border-primary rounded-none px-0 py-4 text-lg focus:ring-0",
+      "label": "uppercase text-xs tracking-widest text-muted-foreground mb-2"
+    },
+    "cards": {
+      "style": "bg-card border border-border rounded-none p-8 hover:border-primary/50 transition-colors duration-300"
+    }
+  },
+  "motion": {
+    "library": "framer-motion",
+    "page_transition": {
+      "initial": { "opacity": 0, "y": 20 },
+      "animate": { "opacity": 1, "y": 0 },
+      "exit": { "opacity": 0, "y": -20 },
+      "transition": { "duration": 0.4, "ease": [0.22, 1, 0.36, 1] }
+    },
+    "hover_effects": "Scale 1.02 on images. Text color shift on links."
+  },
+  "image_assets": {
+    "hero_main": {
+      "url": "https://images.pexels.com/photos/3037244/pexels-photo-3037244.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "Master barber performing a precision cut",
+      "usage": "Hero section background or split screen main image"
+    },
+    "tools_detail": {
+      "url": "https://images.pexels.com/photos/7697711/pexels-photo-7697711.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "Vintage gold and steel barber tools",
+      "usage": "Features section or background texture"
+    },
+    "client_lifestyle": {
+      "url": "https://images.pexels.com/photos/29786513/pexels-photo-29786513.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "Elegant man in suit",
+      "usage": "Testimonials or 'For Clients' section"
+    },
+    "service_beard": {
+      "url": "https://images.pexels.com/photos/3998421/pexels-photo-3998421.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "Beard trim service",
+      "usage": "Services grid"
+    }
+  },
+  "universal_guidelines": {
+    "instructions_to_main_agent": [
+      "IMPLEMENT DARK MODE DEFAULT: Ensure 'dark' class is always applied to html/body.",
+      "NO ROUNDED CORNERS: This brand is sharp and masculine. Use 'rounded-none' or 'rounded-sm' at most.",
+      "GOLD IS HOLY: Use the gold accent color sparingly but effectively (Buttons, Active States, Key Highlights).",
+      "SPACE IS LUXURY: Double the padding. If you think 'p-4' is enough, use 'p-8'.",
+      "MOBILE FIRST: Ensure all grids collapse to 1 column on mobile.",
+      "USE SHADCN: Heavily customize Shadcn components to match the 'rounded-none' and 'gold' aesthetic."
+    ]
+  }
+}
