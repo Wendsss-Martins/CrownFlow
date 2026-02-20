@@ -5,6 +5,7 @@ import { AuthProvider } from './hooks/useAuth';
 import LandingPage from './pages/LandingPage';
 import Dashboard from './pages/Dashboard';
 import AuthCallback from './pages/AuthCallback';
+import BookingPage from './pages/BookingPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
 
@@ -20,6 +21,7 @@ const AppRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
+      <Route path="/agendar/:slug" element={<BookingPage />} />
       <Route 
         path="/dashboard" 
         element={
