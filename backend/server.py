@@ -338,7 +338,12 @@ async def get_me(
     """Get current authenticated user"""
     business = None
     if user.role == 'owner':
-        result = await db.execute(select(Business).where(Business.owner_id == user.id))
+        result = await db.execute(
+            select(Business)
+            .where(Business.owner_id == user.id)
+            .order_by(Business.created_at.desc())
+            .limit(1)
+        )
         business = result.scalar_one_or_none()
     
     return AuthResponse(
