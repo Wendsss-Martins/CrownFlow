@@ -183,6 +183,181 @@ class CrownFlowAPITester:
         )
         return success
 
+    def test_services_unauthorized(self):
+        """Test services endpoints without authentication"""
+        # Test list services without auth
+        success1, _ = self.run_test(
+            "List Services (Unauthorized)",
+            "GET",
+            "api/services",
+            401
+        )
+        
+        # Test create service without auth
+        success2, _ = self.run_test(
+            "Create Service (Unauthorized)",
+            "POST",
+            "api/services",
+            401,
+            data={"name": "Test Service", "price": 50.0, "duration_minutes": 30}
+        )
+        
+        return success1 and success2
+
+    def test_barbers_unauthorized(self):
+        """Test barbers endpoints without authentication"""
+        # Test list barbers without auth
+        success1, _ = self.run_test(
+            "List Barbers (Unauthorized)",
+            "GET",
+            "api/barbers",
+            401
+        )
+        
+        # Test create barber without auth
+        success2, _ = self.run_test(
+            "Create Barber (Unauthorized)",
+            "POST",
+            "api/barbers",
+            401,
+            data={"name": "Test Barber", "specialty": "Hair Cut"}
+        )
+        
+        return success1 and success2
+
+    def test_appointments_unauthorized(self):
+        """Test appointments endpoints without authentication"""
+        # Test list appointments without auth
+        success1, _ = self.run_test(
+            "List Appointments (Unauthorized)",
+            "GET",
+            "api/appointments",
+            401
+        )
+        
+        # Test get stats without auth
+        success2, _ = self.run_test(
+            "Get Appointment Stats (Unauthorized)",
+            "GET",
+            "api/appointments/stats",
+            401
+        )
+        
+        # Test today's appointments without auth
+        success3, _ = self.run_test(
+            "Get Today Appointments (Unauthorized)",
+            "GET",
+            "api/appointments/today",
+            401
+        )
+        
+        return success1 and success2 and success3
+
+    def test_public_apis_no_business(self):
+        """Test public APIs with non-existent business slug"""
+        slug = "nonexistent-business"
+        
+        # Test public services
+        success1, _ = self.run_test(
+            "Public Services (Business Not Found)",
+            "GET",
+            f"api/public/{slug}/services",
+            404
+        )
+        
+        # Test public barbers
+        success2, _ = self.run_test(
+            "Public Barbers (Business Not Found)",
+            "GET",
+            f"api/public/{slug}/barbers",
+            404
+        )
+        
+        # Test public slots
+        success3, _ = self.run_test(
+            "Public Slots (Business Not Found)",
+            "GET",
+            f"api/public/{slug}/slots?barber_id=test&service_id=test&date=2024-01-01",
+            404
+        )
+        
+        # Test public booking
+        success4, _ = self.run_test(
+            "Public Book (Business Not Found)",
+            "POST",
+            f"api/public/{slug}/book",
+            404,
+            data={
+                "service_id": "test",
+                "barber_id": "test", 
+                "appointment_date": "2024-01-01",
+                "appointment_time": "10:00",
+                "client_name": "Test Client",
+                "client_phone": "123456789"
+            }
+        )
+        
+        return success1 and success2 and success3 and success4
+
+    def test_existing_business_flow_foundation(self):
+        """Test if flow-foundation business exists and check its public APIs"""
+        slug = "flow-foundation"
+        
+        print(f"\n📊 Testing existing business: {slug}")
+        
+        # Test get business by slug
+        success1, business_data = self.run_test(
+            f"Get Business {slug}",
+            "GET",
+            f"api/business/{slug}",
+            200
+        )
+        
+        if not success1:
+            print(f"⚠️  Business {slug} not found, skipping public API tests")
+            return True  # Don't fail if business doesn't exist yet
+        
+        # If business exists, test its public APIs
+        # Test public services
+        success2, services_data = self.run_test(
+            f"Public Services for {slug}",
+            "GET",
+            f"api/public/{slug}/services", 
+            200
+        )
+        
+        # Test public barbers
+        success3, barbers_data = self.run_test(
+            f"Public Barbers for {slug}",
+            "GET",
+            f"api/public/{slug}/barbers",
+            200
+        )
+        
+        # Only test slots if we have services and barbers
+        if (success2 and success3 and 
+            isinstance(services_data, list) and len(services_data) > 0 and
+            isinstance(barbers_data, list) and len(barbers_data) > 0):
+            
+            service_id = services_data[0].get('id')
+            barber_id = barbers_data[0].get('id')
+            
+            if service_id and barber_id:
+                success4, _ = self.run_test(
+                    f"Public Slots for {slug}",
+                    "GET",
+                    f"api/public/{slug}/slots?barber_id={barber_id}&service_id={service_id}&date=2024-12-25",
+                    200
+                )
+            else:
+                success4 = True
+                print("⚠️  No valid service/barber IDs found, skipping slots test")
+        else:
+            success4 = True
+            print("⚠️  No services/barbers found, skipping slots test")
+        
+        return success1 and success2 and success3 and success4
+
 def main():
     print("🚀 Starting CrownFlow API Tests")
     print("=" * 50)
