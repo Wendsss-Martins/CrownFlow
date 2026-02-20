@@ -381,6 +381,23 @@ def main():
     business_unauth_ok = tester.test_business_endpoints_unauthorized()
     business_not_found_ok = tester.test_business_by_slug_not_found()
     
+    # Services Tests
+    print("\n✂️ SERVICES TESTS")  
+    services_unauth_ok = tester.test_services_unauthorized()
+    
+    # Barbers Tests
+    print("\n👤 BARBERS TESTS")
+    barbers_unauth_ok = tester.test_barbers_unauthorized()
+    
+    # Appointments Tests
+    print("\n📅 APPOINTMENTS TESTS")
+    appointments_unauth_ok = tester.test_appointments_unauthorized()
+    
+    # Public APIs Tests
+    print("\n🌐 PUBLIC APIS TESTS")
+    public_not_found_ok = tester.test_public_apis_no_business()
+    existing_business_ok = tester.test_existing_business_flow_foundation()
+    
     # Summary
     print("\n" + "=" * 50)
     print(f"📊 FINAL RESULTS")
