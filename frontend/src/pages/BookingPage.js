@@ -80,8 +80,8 @@ const BookingPage = () => {
       setServices(servicesData);
       setBarbers(barbersData);
     } catch (error) {
+      setBusiness(null);
       toast.error('Barbearia não encontrada');
-      navigate('/');
     } finally {
       setLoading(false);
     }
