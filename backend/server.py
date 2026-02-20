@@ -70,11 +70,11 @@ class BusinessResponse(BaseModel):
     name: str
     slug: str
     owner_id: str
-    opening_time: str
-    closing_time: str
-    slot_duration: int
-    working_days: str
-    created_at: datetime
+    opening_time: Optional[str] = "09:00"
+    closing_time: Optional[str] = "19:00"
+    slot_duration: Optional[int] = 30
+    working_days: Optional[str] = "1,2,3,4,5,6"
+    created_at: Optional[datetime] = None
 
 
 class SessionRequest(BaseModel):
