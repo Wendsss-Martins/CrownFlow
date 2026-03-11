@@ -62,4 +62,4 @@ Em desenvolvimento.
 
 ## 👨‍💻 Autor
 
-Desenvolvido por **[Seu Nome]**.
+Desenvolvido por **[Wendel Ferreira Martins]**.
